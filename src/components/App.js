@@ -48,7 +48,16 @@ load(){
 searchClient(e){
   const value = e.target.value.toLowerCase();
   const filter =  this.state.clientsList.filter(user => {
-          return user.general.firstName.toLowerCase().includes(value);
+          return user.general.firstName.toLowerCase().includes(value)
+          ||  user.general.lastName.toLowerCase().includes(value)
+          ||  user.job.company.toLowerCase().includes(value)
+          ||  user.job.title.toLowerCase().includes(value)
+          ||  user.contact.email.toLowerCase().includes(value)
+          ||  user.contact.phone.toLowerCase().includes(value)
+          ||  user.address.street.toLowerCase().includes(value)
+          ||  user.address.city.toLowerCase().includes(value)
+          ||  user.address.zipCode.toLowerCase().includes(value)
+          ||  user.address.country.toLowerCase().includes(value);
   });
 
 this.setState({clientD: filter});
