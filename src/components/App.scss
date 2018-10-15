@@ -57,7 +57,7 @@ a{
 	}
 }
 .app{
-	padding: 50px 0;
+	padding: 25px 0;
 }
 .ui.container{
 	display: flex;
@@ -66,6 +66,9 @@ a{
 }
 .users-column{
 	width: 40%;
+	height: 647px;
+	overflow-y: scroll;
+
 }
 .users-details{
 	width: 60%;
@@ -90,8 +93,13 @@ a{
 		}
 	}
 }
-.input{
+
+.ui.input{
 	width: 100%;
+	position: sticky;
+	top: 0;
+	left: 0;
+	overflow: hidden;
 }
 .clients-list{
 	width: 100%;
@@ -103,22 +111,21 @@ a{
 .user-line-avatar{
 	width: 75px;
 	border-radius: 50%;
+	margin: 0 30px 0 20px;
 }
 .user-line{
-	width: 100%;
+	width: 99%;
 	padding: 5px 0;
 	display: flex;
-	justify-content: space-around;
+	justify-content: flex-start;
 	align-items: center;
 	border-top: 0px solid transparent;
 	border: 1px solid rgba(0,0,0, .2);
-	border-right: 2px solid #000;
 	cursor: pointer;
-	&.active{
-		border: 2px solid rgba(0,0,0, 1);
-		border-right: 1px solid rgba(0,0,0, .4);;	
+	transition: .3s linear;
+	&:hover{
+		background: rgba(204,204,204, .5);
 	}
-
 }
 .users-details-content ul > li:nth-child(1){
 	padding-top: 0;
