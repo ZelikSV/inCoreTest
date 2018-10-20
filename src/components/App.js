@@ -6,62 +6,25 @@ import Search from './searchfield';
 import './App.scss';
 
 
+import {connect} from 'react-redux';
+import filterClients  from '../actions/index';
+
 
 class App extends Component{
 constructor(props) {
   super(props);
   this.state = {
-    clientsList:[],
     clientD: [],
-    choice: {
-      "general": {
-        "firstName": "Deontae",
-        "lastName": "Dare",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/andysolomon/128.jpg"
-      },
-      "job": {
-        "company": "D'Amore, Dicki and Borer",
-        "title": "International Applications Consultant"
-      },
-      "contact": {
-        "email": "Kellie.Marvin38@yahoo.com",
-        "phone": "1-615-843-3426 x600"
-      },
-      "address": {
-        "street": "65901 Glover Terrace",
-        "city": "Alden ton",
-        "zipCode": "57744-4248",
-        "country": "Kenya"
-      }
-    }
-}
-this.load();
+    choice: this.props.clients[0]
 }
 
-load(){
-  fetch('./clients.json')
-.then(response => response.json())
-.then(data => this.setState({ clientsList:  data,
-  clientD: data }));
 }
 
 searchClient(e){
-  const value = e.target.value.toLowerCase();
-  const filter =  this.state.clientsList.filter(user => {
-          return user.general.firstName.toLowerCase().includes(value)
-          ||  user.general.lastName.toLowerCase().includes(value)
-          ||  user.job.company.toLowerCase().includes(value)
-          ||  user.job.title.toLowerCase().includes(value)
-          ||  user.contact.email.toLowerCase().includes(value)
-          ||  user.contact.phone.toLowerCase().includes(value)
-          ||  user.address.street.toLowerCase().includes(value)
-          ||  user.address.city.toLowerCase().includes(value)
-          ||  user.address.zipCode.toLowerCase().includes(value)
-          ||  user.address.country.toLowerCase().includes(value);
-  });
 
-this.setState({clientD: filter});
+  return this.props.allClient(e);
 }
+
   choiceClient(dataClient){
     this.setState({choice: dataClient});
   }
@@ -72,10 +35,11 @@ this.setState({clientD: filter});
           <div className="app">
             <div className="ui container">
               <div className="users-column">
-            <Search clients={this.state.clientsList}
-            update={this.searchClient.bind(this)}
+            <Search clients={this.props.clients}
+            update={ this.searchClient.bind(this) }
             />
-            <ClientsList clientsData={this.state.clientD} 
+ 
+            <ClientsList clientsData={this.props.clients} 
               choiceClient={this.choiceClient.bind(this)}
             />
           </div>
@@ -85,5 +49,15 @@ this.setState({clientD: filter});
         );
       }
 }
-
-export default App;
+const mapStateToProps = (state) =>{
+return{
+  clients: state.reducerClients
+}
+}
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    allClient: text => dispatch(filterClients(text))
+   
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);
