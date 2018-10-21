@@ -14,14 +14,12 @@ class App extends Component{
 constructor(props) {
   super(props);
   this.state = {
-    clientD: [],
     choice: this.props.clients[0]
 }
 
 }
 
 searchClient(e){
-
   return this.props.allClient(e);
 }
 
@@ -30,16 +28,16 @@ searchClient(e){
   }
 
     render() {
-
         return (
           <div className="app">
             <div className="ui container">
               <div className="users-column">
-            <Search clients={this.props.clients}
+            <Search
             update={ this.searchClient.bind(this) }
             />
  
-            <ClientsList clientsData={this.props.clients} 
+            <ClientsList 
+            clientsData={this.props.clients} 
               choiceClient={this.choiceClient.bind(this)}
             />
           </div>
@@ -51,7 +49,8 @@ searchClient(e){
 }
 const mapStateToProps = (state) =>{
 return{
-  clients: state.reducerClients
+  clients: state.reducerClients.filter(
+    item=>item.general.firstName.toLowerCase().includes(state.filterReducer))
 }
 }
 const mapDispatchToProps = (dispatch) =>{

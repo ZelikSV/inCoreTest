@@ -1,6 +1,6 @@
 export default function filterClients(text){
 return {
-    type: "FILTER",
+    type: "FILTER_CLIENTS",
     payload: text
 }
 }
