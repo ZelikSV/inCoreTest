@@ -48,9 +48,24 @@ searchClient(e){
       }
 }
 const mapStateToProps = (state) =>{
+  
 return{
+  
   clients: state.reducerClients.filter(
-    item=>item.general.firstName.toLowerCase().includes(state.filterReducer))
+    item=>
+    {
+      return item.general.firstName.toLowerCase().includes(state.filterReducer)
+      ||  item.general.lastName.toLowerCase().includes(state.filterReducer)
+      ||  item.job.company.toLowerCase().includes(state.filterReducer)
+      ||  item.job.title.toLowerCase().includes(state.filterReducer)
+      ||  item.contact.email.toLowerCase().includes(state.filterReducer)
+      ||  item.contact.phone.toLowerCase().includes(state.filterReducer)
+      ||  item.address.street.toLowerCase().includes(state.filterReducer)
+      ||  item.address.city.toLowerCase().includes(state.filterReducer)
+      ||  item.address.zipCode.toLowerCase().includes(state.filterReducer)
+      ||  item.address.country.toLowerCase().includes(state.filterReducer);
+}    
+    )
 }
 }
 const mapDispatchToProps = (dispatch) =>{

@@ -6,7 +6,8 @@ constructor(props) {
   
 }
 searchUpkeys(event){
-return this.props.update(event.target.value);
+  const val = event.target.value.toLowerCase();
+return this.props.update(val);
 
 }
       render() {
